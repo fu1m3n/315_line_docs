@@ -22,7 +22,7 @@ FST 4.0
 **Спиок контроллеров, датчиков и приводов на каждой станции**<br>
 [Disributing & Testing](https://github.com/fu1m3n/315_line_docs/blob/main/list_of_components/DISTRIBUTING_TESTING.md)<br>
 [Processing & Handling](https://github.com/fu1m3n/315_line_docs/blob/main/list_of_components/PROCESSING_HANDLIND.md)<br>
-[...]
+[Handling & Sorting](https://github.com/fu1m3n/315_line_docs/blob/main/list_of_components/HANDLING_SORTING.md)
 
 **По итогам ревизии и оценки состояния элементов линии составлен список изменений**
 - сменить конвеерную ленту;
