@@ -56,6 +56,9 @@ CONTROLLERS = [
     {"name": "TESTING", "ip": "10.1.1.2", "port": 995},
     {"name": "PROCESSING", "ip": "10.1.1.3", "port": 995},
     {"name": "HANDLING", "ip": "10.1.1.4", "port": 995}
+    {"name": "CONVEER", "ip": "10.1.1.6", "port": 995},
+    {"name": "SORTING", "ip": "10.1.1.7", "port": 995},
+    {"name": "HANDLING2", "ip": "10.1.1.8", "port": 995}
 ]
 ```
 #### 2.	Класс EasyIPPacket
