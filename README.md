@@ -24,9 +24,9 @@
 - OPC UA
 
 ## Оборудование станций
-- [Disributing & Testing](https://github.com/fu1m3n/315_line_docs/blob/main/list_of_components/DISTRIBUTING_TESTING.md);
-- [Processing & Handling](https://github.com/fu1m3n/315_line_docs/blob/main/list_of_components/PROCESSING_HANDLIND.md);
-- [Handling & Sorting](https://github.com/fu1m3n/315_line_docs/blob/main/list_of_components/HANDLING_SORTING.md).
+- [Disributing & Testing](https://github.com/fu1m3n/315_line_docs/blob/main/list_of_components/DISTRIBUTING_TESTING.md)
+- [Processing & Handling](https://github.com/fu1m3n/315_line_docs/blob/main/list_of_components/PROCESSING_HANDLIND.md)
+- [Handling & Sorting](https://github.com/fu1m3n/315_line_docs/blob/main/list_of_components/HANDLING_SORTING.md)
 
 ## Этапы разработки
 
@@ -142,7 +142,6 @@
 
 <img width="936" alt="image" src="https://github.com/user-attachments/assets/87f162e1-6d6e-489c-95bf-c56bd4c3ad47" />
 
-
 #### Third Station (Handling 2 + Sorting)
 Отображение действий:
 - Перенос фишки
@@ -165,7 +164,7 @@
 ## Структура и реализация OPC UA сервера
 
 ### Введение
-Код программы на языке Python находится [здесь](https://github.com/fu1m3n/315_line_docs/blob/main/OPC%20UA%20server%20for%20EasyIP).
+Код программы на языке Python находится [здесь](https://github.com/fu1m3n/315_line_docs/blob/main/OPCUA_server_EasyIP.py).
 
 При создании данной программы информация о протоколе Easy IP бралась из следующих файлов документации:
 - [Automating_with_FST](https://github.com/fu1m3n/315_line_docs/blob/main/Docs/Automating_with_FST.pdf);
@@ -194,6 +193,7 @@ CONTROLLERS = [
     {"name": "HANDLING2", "ip": "10.1.1.8", "port": 995}
 ]
 ```
+
 #### 2.	Класс EasyIPPacket
 Этот класс реализует структуру пакета протокола Festo EasyIP. Он позволяет упаковывать запросы и распаковывать полученные от контроллера пакеты.
 
@@ -257,6 +257,7 @@ def tag_name_from_type_offset(data_type, offset):
     prefix = type_map.get(data_type, f"T{data_type}")
     return f"{prefix}{offset}"
 ```
+
 #### 4.	Формирование запроса
 Функция формирует запрос EasyIP для чтения 64 слов одного типа данных (MW/EW/AW/TV) начиная с адреса 0.
 - `counter` — счётчик запросов;
@@ -274,8 +275,10 @@ def build_easyip_request(counter, index1, req_type):
     packet.reqdata_offset_server = 0
     return packet.pack()
 ```
+
 #### 5.	Парсинг полученного ответа
 В этой функции происходит разбор пакета. Payload считывается в цикле в соответствии с запрашиваемым количеством слов (по полю `reqdata_size`). В этом же цикле вносится информация из заголовка о типе данных и смещении конкретного байта для последующего формирования названия тега. Всё это записывается в список `values`.
+
 ```python
 def parse_easyip_packet(data):
     packet = EasyIPPacket(data)
@@ -288,6 +291,7 @@ def parse_easyip_packet(data):
             values.append((position, value))
     return values
 ```
+
 #### 6.	Функция опроса контроллера
 Функция работает в бесконечном цикле, постоянно опрашивая контроллер.
 
@@ -341,6 +345,7 @@ def poll_controller(controller, opc_tags, idx, ctrl_node):
                 print(f"Timeout: no response from {controller['name']}")
             time.sleep(POLL_INTERVAL)
 ```
+
 #### 7. Запуск OPC UA сервера и создание тегов
 - `server = Server()` – создается объект сервера.
 
@@ -392,6 +397,7 @@ def start_opcua_server():
     server.start()
     print("OPC UA server running at opc.tcp://0.0.0.0:4840")
 ```
+
 #### 8.	Главная функция
 Запускает сервер и оставляет главный поток в бесконечном цикле. В это время сервер работает, параллельно опрашивая несколько контроллеров.
 
